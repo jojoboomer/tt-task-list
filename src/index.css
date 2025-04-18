@@ -1,5 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
 @import "tailwindcss";
 @import "tw-animate-css";
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', monospace;
+  background-color: #f5f5f5;
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -18,9 +29,11 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+  --color-tertiary: var(--tertiary);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
+  --color-default: var(--default);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
@@ -39,6 +52,14 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-hashtag: var(--hashtag);
+  --color-hashtag-foreground: var(--hashtag-foreground);
+  --color-arroba: var(--arroba);
+  --color-arroba-foreground: var(--arroba-foreground);
+  --color-mailto: var(--mailto);
+  --color-mailto-foreground: var(--mailto-foreground);
+  --color-url: var(--url);
+  --color-url-foreground: var(--url-foreground);
 }
 
 :root {
@@ -49,16 +70,18 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: oklch(0.61 0.211962 256.3304);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --secondary: oklch(0.48 0.0477 262.02);
   --secondary-foreground: oklch(0.205 0 0);
+  --tertiary: oklch(0.66 0.0291 262.29);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
+  --default: oklch(0.95 0.0093 242.84);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
+  --border: oklch(70.7% 0.022 261.325);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -74,6 +97,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --hashtag: oklch(0.86 0.0792 301.09);
+  --hashtag-foreground: oklch(0.51 0.2497 290.92);
+  --arroba: oklch(0.9 0.0743 171.3);
+  --arroba-foreground: oklch(0.65 0.141 161.85);
+  --mailto: oklch(0.94 0.0491 73.11);  
+  --mailto-foreground: oklch(0.74 0.1692 61.65);  
+  --url: oklch(0.93 0.0352 246.88);
+  --url-foreground: oklch(0.73 0.1455 250.72);
 }
 
 .dark {
