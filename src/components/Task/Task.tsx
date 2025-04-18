@@ -1,7 +1,8 @@
 import useParseMessage from "@/hooks/useParseMessage";
 import { useState } from "react";
+import RichInput from "../RichInput";
+import { TaskCheckBox } from "../TaskCheckBox";
 import { ButtonBar } from "./ButtonBar";
-import RichInput from "./RichInput";
 
 interface TaskProps {
   data?: Task;
@@ -59,7 +60,7 @@ export const Task = ({
         onClick={handleClick}
       >
         <div className="px-4 py-1 w-full flex items-center gap-2">
-          {/* {<TaskCheckBox status={data?.status} />} */}
+          {<TaskCheckBox status={data?.status} />}
           <span className="text-tertiary">
             {parsed ? parsed : "Type to add new task"}
           </span>
@@ -71,7 +72,7 @@ export const Task = ({
   return (
     <div className="shadow-md mt-2 ">
       <div className="px-4 py-1 w-full flex items-center gap-2">
-        {/* {<TaskCheckBox status={data?.status} />} */}
+        {<TaskCheckBox status={data?.status} />}
         <RichInput text={text} onChange={handleMessageChange} />
       </div>
       <ButtonBar
