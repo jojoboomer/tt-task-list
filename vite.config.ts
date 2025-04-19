@@ -8,6 +8,10 @@ export default defineConfig(() => ({
   plugins: [react(), tailwindcss()],
   test: {
     environment: 'happy-dom',
+    coverage: {
+      provider: 'v8',
+      reportsDirectory: './tests/coverage',
+    },
   },
   resolve: {
     alias: {
