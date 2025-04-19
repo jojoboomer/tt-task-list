@@ -1,29 +1,12 @@
 import { useEffect, useState } from "react";
+import { NewTask } from "./components/Task/NewTask";
 import { Task } from "./components/Task/Task";
 import { Button } from "./components/ui/button";
 import useTaskStore from "./store/tasklist";
 
 function App() {
   const [list, setList] = useState<Task[]>([]);
-  const { taskList, addTask, updateTask,clear } = useTaskStore();
-  const [activeTask, setActiveTask] = useState<number | "new" | null>(null);
-
-  const saveAction = (data: Task | number) => {
-    if (typeof data === "number") {
-      updateTask(data as number);
-      return
-    }
-    addTask(data as Task);
-    setActiveTask(null);
-  };
-
-  const cancelChanges = () => {
-    setActiveTask(null);
-  };
-
-  const editTask = (taskId: number | "new") => {
-    setActiveTask(taskId);
-  };
+  const { taskList, clear, activeTask } = useTaskStore();
 
   useEffect(() => {
     setList(taskList);
@@ -31,22 +14,14 @@ function App() {
 
   return (
     <main className="bg-background w-full h-screen overflow-auto">
-      <Button onClick={clear} >Clear</Button>
+      <Button onClick={clear}>Clear</Button>
       <section className="mx-auto my-0 max-w-[1328px]">
-        <Task
-          isActive={activeTask === "new"}
-          onApply={saveAction}
-          onCancel={cancelChanges}
-          onFocus={editTask}
-        />
+        <NewTask active={activeTask == 'new'} />
         {list.map((task: Task) => (
           <Task
             key={task.id}
             data={task}
-            isActive={activeTask === task.id}
-            onApply={saveAction}
-            onCancel={cancelChanges}
-            onFocus={editTask}
+            active={activeTask === task.id}
           />
         ))}
       </section>

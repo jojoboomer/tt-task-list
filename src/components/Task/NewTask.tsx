@@ -1,18 +1,14 @@
 import useParseMessage from "@/hooks/useParseMessage";
 import useTaskStore from "@/store/tasklist";
+import { PlusSquare } from "lucide-react";
 import { useCallback, useState } from "react";
 import RichInput from "../RichInput";
-import { Checkbox } from "../ui/checkbox";
 import { ButtonBar } from "./ButtonBar";
 
-interface TaskProps {
-  data: Task;
-}
-
-export const Task = ({ data }: TaskProps) => {
-  const [text, setText] = useState<string>(data.title);
-  const { updateTask, activeTask, setActiveTask } = useTaskStore();
-  const active = activeTask === data.id;
+export const NewTask = () => {
+  const [text, setText] = useState<string>("");
+  const { addTask, activeTask, setActiveTask } = useTaskStore();
+  const active = activeTask == "new";
   const parsed = useParseMessage({ text, readOnly: !active });
 
   const handleMessageChange = useCallback((newText: string) => {
@@ -20,20 +16,27 @@ export const Task = ({ data }: TaskProps) => {
   }, []);
 
   const handleCancel = useCallback(() => {
-    setText(data.title);
+    setText("");
     setActiveTask(null);
-  }, [data.title, setActiveTask]);
+  }, [setActiveTask]);
 
-  const handleSave = useCallback(() => {
-    updateTask(data.id);
+  const handleAdd = useCallback(() => {
+    const newTask: Task = {
+      id: Math.random(),
+      title: text,
+      status: "pending",
+      created_at: "",
+    };
+    addTask(newTask);
+    setText("");
     setActiveTask(null);
-  }, [data.id, updateTask, setActiveTask]);
+  }, [text, addTask, setActiveTask]);
 
   const handleClick = useCallback(() => {
     if (!active) {
-      setActiveTask(data.id);
+      setActiveTask("new");
     }
-  }, [activeTask, data.id, setActiveTask]);
+  }, [activeTask, setActiveTask]);
 
   return (
     <div
@@ -43,13 +46,12 @@ export const Task = ({ data }: TaskProps) => {
       }`}
     >
       <div className={`px-4 py-1 w-full flex items-center gap-2 rounded-t-md ${active ? "border border-gray-300" : ""}`}>
-      {/* Test instructions dont ask for Checkbox funcionality */}
-      <Checkbox className="size-5" />
+        <PlusSquare className="text-primary" size={20} />
         {active ? (
           <RichInput text={text} onChange={handleMessageChange} />
         ) : (
           <span className="text-tertiary">
-            {parsed || "Type to add new task"}
+            {parsed ? parsed : "Type to add new task"}
           </span>
         )}
       </div>
@@ -57,9 +59,9 @@ export const Task = ({ data }: TaskProps) => {
         <ButtonBar
           disabled={!text}
           onCancel={handleCancel}
-          onApply={handleSave}
-          newComp={false}
-          edited={text !== data.title}
+          onApply={handleAdd}
+          newComp={true}
+          edited={text !== ''}
         />
       )}
     </div>
