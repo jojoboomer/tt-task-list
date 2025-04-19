@@ -8,8 +8,8 @@ interface State {
 
 interface Actions {
   setActiveTask: (activeTask: number | "new" | null) => void;
-  addTask: (task: Task) => void;
-  updateTask: (taskId: number) => void;
+  addTask: (newTask: Task) => void;
+  updateTask: (updatedTask: Task) => void;
   clear: () => void;
 }
 
@@ -30,13 +30,13 @@ const useTaskStore = create<State & Actions>()(
   persist(
     (set) => ({
       ...initialState,
-      addTask: (task: Task) =>
-        set((state) => ({ taskList: [...state.taskList, task] })),
-      updateTask: (taskId: number) =>
+      addTask: (newTask: Task) =>
+        set((state) => ({ taskList: [...state.taskList, newTask] })),
+      updateTask: (updatedTask: Task) =>
         set((state) => ({
-          taskList: state.taskList.map((task) =>
-            task.id === taskId ? task : { ...task }
-          ),
+          taskList: state.taskList.map((task) =>{
+            return task.id === updatedTask.id ? updatedTask : task
+          }),
         })),
       setActiveTask: (activeTask: number | "new" | null) =>
         set(() => ({ activeTask })),
