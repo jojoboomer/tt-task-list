@@ -13,9 +13,9 @@ function App() {
   }, [activeTask, taskList]);
 
   return (
-    <main className="bg-background w-full h-screen overflow-auto">
-      <Button onClick={clear}>Clear</Button>
-      <section className="mx-auto my-0 max-w-[1328px]">
+    <main className="relative bg-background w-full h-screen overflow-auto">
+      <Button className="absolute bottom-0 " onClick={clear}>Clear</Button>
+      <section role="list" className="mx-auto my-0 max-w-[1328px]">
         <NewTask />
         {list.map((task: Task) => (
           <Task key={task.id} data={task} />

@@ -40,8 +40,9 @@ const RichInput: React.FC<Props> = ({ text, onChange }) => {
 
   return (
     <div className="relative w-full overflow-hidden">
-      {/*Back editable*/}
+      {/*Front parsed*/}
       <div
+        data-testid="parsed-div"
         ref={parsedRef}
         aria-hidden="true"
         className="absolute inset-0
@@ -52,8 +53,9 @@ const RichInput: React.FC<Props> = ({ text, onChange }) => {
         {parsed || <span className="text-tertiary">Type to add new task</span>}
       </div>
 
-      {/*Front parsed*/}
+      {/*Back editable*/}
       <div
+        data-testid="editable-div"
         ref={editableRef}
         contentEditable
         suppressContentEditableWarning
