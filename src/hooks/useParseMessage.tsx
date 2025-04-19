@@ -9,18 +9,6 @@ const REGEXES: {
   prefix: string;
 }[] = [
   {
-    regex: /@(\w+)/g,
-    className: "text-arroba-foreground",
-    readOnlyclassName: `text-arroba-foreground bg-arroba ${baseReadOnlyClassName}`,
-    prefix: "arroba",
-  },
-  {
-    regex: /#(\w+)/g,
-    className: "text-hashtag-foreground ",
-    readOnlyclassName: `text-hashtag-foreground bg-hashtag ${baseReadOnlyClassName}`,
-    prefix: "hashtag",
-  },
-  {
     regex: /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g,
     className: "text-mailto-foreground underline",
     readOnlyclassName: `text-mailto-foreground bg-mailto ${baseReadOnlyClassName}`,
@@ -31,6 +19,18 @@ const REGEXES: {
     className: "text-url-foreground underline",
     readOnlyclassName: `text-url-foreground bg-url ${baseReadOnlyClassName}`,
     prefix: "url",
+  },
+  {
+    regex: /@(\w+)/g,
+    className: "text-arroba-foreground",
+    readOnlyclassName: `text-arroba-foreground bg-arroba ${baseReadOnlyClassName}`,
+    prefix: "arroba",
+  },
+  {
+    regex: /#(\w+)/g,
+    className: "text-hashtag-foreground",
+    readOnlyclassName: `text-hashtag-foreground bg-hashtag ${baseReadOnlyClassName}`,
+    prefix: "hashtag",
   },
 ];
 
