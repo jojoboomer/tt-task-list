@@ -3,15 +3,18 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 interface State {
   taskList: Task[];
+  activeTask: number | "new" | null;
 }
 
 interface Actions {
+  setActiveTask: (activeTask: number | "new" | null) => void;
   addTask: (task: Task) => void;
   updateTask: (taskId: number) => void;
   clear: () => void;
 }
 
 const initialState: State = {
+  activeTask: null,
   taskList: [
     {
       id: 1,
@@ -35,6 +38,8 @@ const useTaskStore = create<State & Actions>()(
             task.id === taskId ? task : { ...task }
           ),
         })),
+      setActiveTask: (activeTask: number | "new" | null) =>
+        set(() => ({ activeTask })),
       clear: () => set(initialState),
     }),
     {
