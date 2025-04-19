@@ -16,13 +16,9 @@ function App() {
     <main className="bg-background w-full h-screen overflow-auto">
       <Button onClick={clear}>Clear</Button>
       <section className="mx-auto my-0 max-w-[1328px]">
-        <NewTask active={activeTask == 'new'} />
+        <NewTask />
         {list.map((task: Task) => (
-          <Task
-            key={task.id}
-            data={task}
-            active={activeTask === task.id}
-          />
+          <Task key={task.id} data={task} />
         ))}
       </section>
     </main>
