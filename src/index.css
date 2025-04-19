@@ -4,12 +4,15 @@
 @import "tw-animate-css";
 
 html, body {
-  height: 100%;
-  width: 100%;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: 'Roboto', monospace;
   background-color: #f5f5f5;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 2%;
 }
 
 @custom-variant dark (&:is(.dark *));
@@ -60,6 +63,7 @@ html, body {
   --color-mailto-foreground: var(--mailto-foreground);
   --color-url: var(--url);
   --color-url-foreground: var(--url-foreground);
+  --color-gray-300: oklch(0.94 0.0067 233.64);
 }
 
 :root {
