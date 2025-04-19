@@ -1,5 +1,7 @@
 import { DynamicIcon, IconName } from "lucide-react/dynamic";
 import { Button } from "../ui/button";
+import ButtonGroup from "./ButtonGroup";
+import ButtonWithIcon from "./ButtonIcon";
 
 interface Props {
   disabled?: boolean;
@@ -16,6 +18,7 @@ export const ButtonBar = ({
   newComp,
   edited = false,
 }: Props) => {
+  
   const renderLeftButtons = () => (
     <div className="flex flex-1 gap-4">
       <Button
@@ -27,7 +30,15 @@ export const ButtonBar = ({
         <DynamicIcon name="maximize-2" className="size-5 text-secondary" />
         <span className="hidden xl:block">Open</span>
       </Button>
-      <div className="space-x-1">
+      <ButtonWithIcon
+        icon={"maximize-2"}
+        label={"Open"}
+        role="button"
+        disabled={disabled}
+        variant="secondary"
+        className="bg-default"
+      />
+      <ButtonGroup>
         {[
           { name: "calendar", label: "Today" },
           { name: "unlock", label: "Public" },
@@ -45,23 +56,23 @@ export const ButtonBar = ({
             <span className="hidden xl:block">{label}</span>
           </Button>
         ))}
-      </div>
+      </ButtonGroup>
     </div>
   );
 
   const renderRightButtons = () => (
-    <div className="space-x-1 xl:inline hidden">
+    <ButtonGroup className="xl:flex hidden">
       <Button role="action" className="bg-default" onClick={onCancel} variant="secondary">
         Cancel
       </Button>
       <Button role="action" onClick={onApply}>
         {newComp ? (edited ? "Add" : "Ok") : "Save"}
       </Button>
-    </div>
+    </ButtonGroup>
   );
 
   const renderMobileButtons = () => (
-    <div className="inline xl:hidden">
+    <ButtonGroup className="inline xl:hidden">
       {edited ? (
         <Button role="action" size="icon" onClick={onApply}>
           <DynamicIcon
@@ -75,11 +86,11 @@ export const ButtonBar = ({
           <DynamicIcon name="x" className="size-5" color="white" />
         </Button>
       )}
-    </div>
+    </ButtonGroup>
   );
 
   return (
-    <div className="p-2 transition-all duration-300 flex">
+    <div className="p-2 flex">
       {renderLeftButtons()}
       {renderRightButtons()}
       {renderMobileButtons()}

@@ -26,15 +26,15 @@ export const Task = ({ data }: TaskProps) => {
 
   const handleSave = useCallback(() => {
     // We can set all the data in the task, but test only ask for title
-    updateTask({...data, title: text}); //TODO check why the task update is not working correctly
+    updateTask({...data, title: text}); 
     setActiveTask(null);
-  }, [data, updateTask, setActiveTask]);
+  }, [text, data, updateTask, setActiveTask]);
 
   const handleClick = useCallback(() => {
     if (!active) {
       setActiveTask(data.id);
     }
-  }, [activeTask, data.id, setActiveTask]);
+  }, [active, data.id, setActiveTask]);
 
   return (
     <div
