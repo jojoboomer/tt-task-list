@@ -41,7 +41,7 @@ export default function useParseMessage({
   text: string;
   readOnly?: boolean;
 }) {
-  return useMemo(() => {
+  return useMemo<readonly (string | React.ReactNode)[] | null>(() => {
     if (!text) return null;
     let parts: Array<string | React.ReactNode> = [text];
 
@@ -70,7 +70,7 @@ export default function useParseMessage({
     }
 
     // Saltos de línea
-    return parts.flatMap((part, i) =>
+    return parts.flatMap<string | React.ReactNode>((part, i) =>
       typeof part === "string"
         ? part
             .split("\n")
