@@ -1,7 +1,7 @@
-import { DynamicIcon, IconName } from "lucide-react/dynamic";
+import { DynamicIcon } from "lucide-react/dynamic";
 import { Button } from "../ui/button";
 import ButtonGroup from "./ButtonGroup";
-import ButtonWithIcon from "./ButtonIcon";
+import ButtonWithIcon from "./ButtonWithIcon";
 
 interface Props {
   disabled?: boolean;
@@ -11,6 +11,13 @@ interface Props {
   onApply: () => void;
 }
 
+const toolbarButtons = [
+  { icon: "calendar", label: "Today" },
+  { icon: "unlock", label: "Public" },
+  { icon: "loader", label: "Highlight" },
+  { icon: "disc", label: "Estimation", extraClass: "py-2 pr-6 pl-4" },
+];
+
 export const ButtonBar = ({
   disabled = false,
   onCancel,
@@ -18,18 +25,8 @@ export const ButtonBar = ({
   newComp,
   edited = false,
 }: Props) => {
-  
   const renderLeftButtons = () => (
     <div className="flex flex-1 gap-4">
-      <Button
-        role="button"
-        disabled={disabled}
-        variant="secondary"
-        className="bg-default"
-      >
-        <DynamicIcon name="maximize-2" className="size-5 text-secondary" />
-        <span className="hidden xl:block">Open</span>
-      </Button>
       <ButtonWithIcon
         icon={"maximize-2"}
         label={"Open"}
@@ -37,24 +34,20 @@ export const ButtonBar = ({
         disabled={disabled}
         variant="secondary"
         className="bg-default"
+        iconClassName="text-secondary"
+        labelClassName="text-black"
       />
       <ButtonGroup>
-        {[
-          { name: "calendar", label: "Today" },
-          { name: "unlock", label: "Public" },
-          { name: "loader", label: "Highlight" },
-          { name: "disc", label: "Estimation", extraClass: "py-2 pr-6 pl-4" },
-        ].map(({ name, label, extraClass = "" }) => (
-          <Button
+        {toolbarButtons.map(({ icon, label, extraClass = "" }) => (
+          <ButtonWithIcon
+            label={label}
             role="button"
-            key={name}
-            className={`text-tertiary border-border ${extraClass}`}
+            key={label}
+            icon={icon}
+            className={extraClass}
             disabled={disabled}
             variant="outline"
-          >
-            <DynamicIcon name={name as IconName} className="size-5" />
-            <span className="hidden xl:block">{label}</span>
-          </Button>
+          />
         ))}
       </ButtonGroup>
     </div>
@@ -62,7 +55,12 @@ export const ButtonBar = ({
 
   const renderRightButtons = () => (
     <ButtonGroup className="xl:flex hidden">
-      <Button role="action" className="bg-default" onClick={onCancel} variant="secondary">
+      <Button
+        role="action"
+        className="bg-default"
+        onClick={onCancel}
+        variant="secondary"
+      >
         Cancel
       </Button>
       <Button role="action" onClick={onApply}>

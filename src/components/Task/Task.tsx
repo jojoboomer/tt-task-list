@@ -2,6 +2,7 @@ import useParseMessage from "@/hooks/useParseMessage";
 import useTaskStore from "@/store/tasklist";
 import { useCallback, useState } from "react";
 import RichInput from "../RichInput";
+import TaskTitle from "../TaskTitle";
 import { Checkbox } from "../ui/checkbox";
 import { ButtonBar } from "./ButtonBar";
 
@@ -26,7 +27,7 @@ export const Task = ({ data }: TaskProps) => {
 
   const handleSave = useCallback(() => {
     // We can set all the data in the task, but test only ask for title
-    updateTask({...data, title: text}); 
+    updateTask({ ...data, title: text });
     setActiveTask(null);
   }, [text, data, updateTask, setActiveTask]);
 
@@ -43,15 +44,17 @@ export const Task = ({ data }: TaskProps) => {
         active ? "shadow-md " : "hover:cursor-pointer active:opacity-50"
       }`}
     >
-      <div className={`px-4 py-1 w-full flex items-center gap-2 rounded-t-md ${active ? "border border-gray-300" : ""}`}>
-      {/* Test instructions dont ask for Checkbox funcionality */}
-      <Checkbox className="size-5" />
+      <div
+        className={`px-4 py-1 w-full flex items-center gap-2 rounded-t-md ${
+          active ? "border border-gray-300" : ""
+        }`}
+      >
+        {/* Test instructions dont ask for Checkbox funcionality */}
+        <Checkbox className="size-5" />
         {active ? (
           <RichInput text={text} onChange={handleMessageChange} />
         ) : (
-          <span className="text-tertiary">
-            {parsed || "Type to add new task"}
-          </span>
+          <TaskTitle text={parsed} />
         )}
       </div>
       {active && (

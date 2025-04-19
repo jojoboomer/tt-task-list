@@ -3,6 +3,7 @@ import useTaskStore from "@/store/tasklist";
 import { PlusSquare } from "lucide-react";
 import { useCallback, useState } from "react";
 import RichInput from "../RichInput";
+import TaskTitle from "../TaskTitle";
 import { ButtonBar } from "./ButtonBar";
 
 export const NewTask = () => {
@@ -40,6 +41,7 @@ export const NewTask = () => {
 
   return (
     <div
+      data-testid="new-task"
       onClick={handleClick}
       className={`mt-2 rounded-md ${
         active ? "shadow-md " : "hover:cursor-pointer active:opacity-50"
@@ -50,9 +52,7 @@ export const NewTask = () => {
         {active ? (
           <RichInput text={text} onChange={handleMessageChange} />
         ) : (
-          <span className="text-tertiary">
-            {parsed ? parsed : "Type to add new task"}
-          </span>
+          <TaskTitle/>
         )}
       </div>
       {active && (
