@@ -1,4 +1,13 @@
-import { Calendar, Disc, Highlighter, Maximize2, Plus, Save, Unlock, X } from "lucide-react";
+import {
+  Calendar,
+  Disc,
+  Highlighter,
+  Maximize2,
+  Plus,
+  Save,
+  Unlock,
+  X,
+} from "lucide-react";
 import { Button } from "../ui/button";
 import ButtonGroup from "./ButtonGroup";
 import ButtonWithIcon from "./ButtonWithIcon";
@@ -14,11 +23,14 @@ interface Props {
 type IconName = "calendar" | "unlock" | "highlighter" | "disc";
 
 // Mapeo de íconos a componentes
-const iconComponents: Record<IconName, React.ComponentType< { className?: string }>> = {
+const iconComponents: Record<
+  IconName,
+  React.ComponentType<{ className?: string }>
+> = {
   calendar: Calendar,
   unlock: Unlock,
   highlighter: Highlighter,
-  disc: Disc
+  disc: Disc,
 };
 
 const toolbarButtons = [
@@ -76,9 +88,15 @@ export const ButtonBar = ({
       >
         Cancel
       </Button>
-      <Button role="action" onClick={onApply}>
-        {newComp ? (edited ? "Add" : "Ok") : "Save"}
-      </Button>
+      {edited ? (
+        <Button role="action" onClick={onApply}>
+          {newComp ? "Add" : "Save"}
+        </Button>
+      ) : (
+        <Button role="action" onClick={onApply}>
+          Ok
+        </Button>
+      )}
     </ButtonGroup>
   );
 
