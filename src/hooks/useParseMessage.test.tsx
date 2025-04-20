@@ -36,7 +36,7 @@ describe("useParseMessage hook", () => {
     });
     expect(result?.[2]).toMatchObject({
       props: {
-        className: "text-url-foreground underline",
+        className: "text-url-foreground",
         children: "http://DummyText.com",
       },
     });
@@ -48,7 +48,7 @@ describe("useParseMessage hook", () => {
 
     expect(result?.[6]).toMatchObject({
       props: {
-        className: "text-mailto-foreground underline",
+        className: "text-mailto-foreground",
         children: "address@example.com",
       },
     });
@@ -72,6 +72,28 @@ describe("useParseMessage hook", () => {
         className:
           "text-arroba-foreground bg-arroba rounded-xl py-0.5 px-2 mx-1",
         children: "@arroba",
+      },
+    });
+  });
+
+  it("url coverage", () => {
+    const text = "This url www.google.com is valid as http://www.google.com or https://www.google.com";
+    const result = renderUseParseMessage(text, true);
+
+    expect(result).toHaveLength(6);
+    expect(result?.[1]).toMatchObject({
+      props: {
+        children: "www.google.com",
+      },
+    });
+    expect(result?.[3]).toMatchObject({
+      props: {
+        children: "http://www.google.com",
+      },
+    });
+    expect(result?.[5]).toMatchObject({
+      props: {
+        children: "https://www.google.com",
       },
     });
   });

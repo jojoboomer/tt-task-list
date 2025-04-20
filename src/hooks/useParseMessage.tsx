@@ -10,13 +10,13 @@ const REGEXES: {
 }[] = [
   {
     regex: /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g,
-    className: "text-mailto-foreground underline",
+    className: "text-mailto-foreground",
     readOnlyclassName: `text-mailto-foreground bg-mailto ${baseReadOnlyClassName}`,
     prefix: "email",
   },
   {
-    regex: /https?:\/\/[^\s]+/g,
-    className: "text-url-foreground underline",
+    regex: /(https?:\/\/|www\.)[^\s]+/g,
+    className: "text-url-foreground",
     readOnlyclassName: `text-url-foreground bg-url ${baseReadOnlyClassName}`,
     prefix: "url",
   },
