@@ -22,6 +22,10 @@ export const NewTask = () => {
   }, [setActiveTask]);
 
   const handleAdd = useCallback(() => {
+    if(!text) {
+      setActiveTask(null);
+      return
+    }
     const newTask: Task = {
       id: Math.random(),
       title: text,
