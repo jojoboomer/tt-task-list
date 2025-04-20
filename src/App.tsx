@@ -13,7 +13,7 @@ function App() {
   }, [activeTask, taskList]);
 
   return (
-    <main className="relative bg-background w-full h-screen overflow-auto">
+    <main className="relative bg-background w-full h-screen overflow-auto text-base">
       <Button className="absolute bottom-0 " onClick={clear}>Clear</Button>
       <section role="list" className="mx-auto my-0 max-w-[1328px]">
         <NewTask />
