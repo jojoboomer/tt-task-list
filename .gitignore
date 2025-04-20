@@ -28,3 +28,9 @@ dist-ssr
 
 *.pdf
 src/tests/coverage
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

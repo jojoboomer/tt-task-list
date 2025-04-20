@@ -10,7 +10,7 @@ export default defineConfig(() => ({
     environment: 'happy-dom',
     coverage: {
       provider: 'v8',
-      reportsDirectory: './tests/coverage',
+      reportsDirectory: './src/tests/coverage',
     },
   },
   resolve: {
