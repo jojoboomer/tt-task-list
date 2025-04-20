@@ -6,3 +6,5 @@ interface Task {
   status: TaskStatus;
   created_at: string;
 }
+
+type TaskEntry =  Omit<Task, "id" | "created_at">;
