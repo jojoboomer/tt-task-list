@@ -15,15 +15,16 @@ interface Actions {
 
 const initialState: State = {
   activeTask: null,
-  taskList: [
-    {
-      id: 1,
-      title:
-        "#Important Write to some_email@gmail.com and tell @natasha about https://staging.alldone.app",
-      status: "pending",
-      created_at: "",
-    },
-  ],
+  // taskList: [
+  //   {
+  //     id: 1,
+  //     title:
+  //       "#Important Write to some_email@gmail.com and tell @natasha about https://staging.alldone.app",
+  //     status: "pending",
+  //     created_at: "",
+  //   },
+  // ],
+  taskList: [],
 };
 
 const useTaskStore = create<State & Actions>()(
