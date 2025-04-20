@@ -14,7 +14,7 @@ interface Props {
 const toolbarButtons = [
   { icon: "calendar", label: "Today" },
   { icon: "unlock", label: "Public" },
-  { icon: "loader", label: "Highlight" },
+  { icon: "highlighter", label: "Normal" },
   { icon: "disc", label: "Estimation", extraClass: "py-2 pr-6 pl-4" },
 ];
 
