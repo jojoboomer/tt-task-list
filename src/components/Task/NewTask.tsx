@@ -1,4 +1,4 @@
-import useParseMessage from "@/hooks/useParseMessage";
+import { useMutationTask } from "@/hooks/useTask";
 import useTaskStore from "@/store/tasklist";
 import { PlusSquare } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -10,7 +10,7 @@ export const NewTask = () => {
   const [text, setText] = useState<string>("");
   const { addTask, activeTask, setActiveTask } = useTaskStore();
   const active = activeTask == "new";
-  const parsed = useParseMessage({ text, readOnly: !active });
+  const mutation = useMutationTask();
 
   const handleMessageChange = useCallback((newText: string) => {
     setText(newText);
@@ -22,13 +22,11 @@ export const NewTask = () => {
   }, [setActiveTask]);
 
   const handleAdd = useCallback(() => {
-    const newTask: Task = {
-      id: Math.random(),
+    mutation.mutate({
       title: text,
       status: "pending",
-      created_at: "",
-    };
-    addTask(newTask);
+    });
+    // addTask(newTask);
     setText("");
     setActiveTask(null);
   }, [text, addTask, setActiveTask]);
@@ -47,12 +45,16 @@ export const NewTask = () => {
         active ? "shadow-md " : "hover:cursor-pointer active:opacity-50"
       }`}
     >
-      <div className={`px-4 py-1 w-full flex items-center gap-2 rounded-t-md ${active ? "border border-gray-300" : ""}`}>
+      <div
+        className={`px-4 py-1 w-full flex items-center gap-2 rounded-t-md ${
+          active ? "border border-gray-300" : ""
+        }`}
+      >
         <PlusSquare className="text-primary" size={20} />
         {active ? (
           <RichInput text={text} onChange={handleMessageChange} />
         ) : (
-          <TaskTitle/>
+          <TaskTitle />
         )}
       </div>
       {active && (
@@ -61,7 +63,7 @@ export const NewTask = () => {
           onCancel={handleCancel}
           onApply={handleAdd}
           newComp={true}
-          edited={text !== ''}
+          edited={text !== ""}
         />
       )}
     </div>
