@@ -50,3 +50,5 @@ npm run dev
 - I had some trouble checking the url provided http://staging.alldone.app/. I cant create an account, even using VPN. I had to figure out how the site would work. Forgive me if some features are not as expected.
 
 - In description says that badges are touchables but not say how the task is open it. So in my solution i made the task open when i click on it and ignore the touchable badge, If we want to make it touchable we can use anchor instead of span on the hook ```useParseMessage.tsx```, but for that we need implement other way to open the task.
+
+- I cant find the icon for the highlight button, so i used the highlighter icon from my icon library. I dont undestand the icon for estimation sorry, so i used a similar visual icons.
