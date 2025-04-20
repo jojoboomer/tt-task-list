@@ -1,6 +1,7 @@
 import { TextDecorator } from "@/components/TextDecorator";
 import { cn } from "@/lib/utils";
-import { useMemo } from "react";
+import { Link, LucideProps, Mail } from "lucide-react";
+import { ForwardRefExoticComponent, RefAttributes, useMemo } from "react";
 
 const baseReadOnlyClassName = "rounded-xl font-normal";
 const baseClassName = "text-base";
@@ -10,35 +11,49 @@ const REGEXES: {
   className: string;
   readOnlyclassName: string;
   prefix: string;
-  icon?: string;
+  icon?: ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+  >;
 }[] = [
   {
     //simple regex for mailto not inclue special cases
     regex: /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g,
     className: `text-mailto-foreground ${baseClassName}`,
-    readOnlyclassName: `text-mailto-foreground bg-mailto ${cn(baseClassName, baseReadOnlyClassName)}`,
+    readOnlyclassName: `text-mailto-foreground bg-mailto ${cn(
+      baseClassName,
+      baseReadOnlyClassName
+    )}`,
     prefix: "email",
-    icon: "mail",
+    icon: Mail,
   },
   {
     //not include regex for particular cases (.com, .org, etc) not specificed in test
     regex: /(https?:\/\/|www\.)[^\s]+/g,
     className: `text-url-foreground ${baseClassName}`,
-    readOnlyclassName: `text-url-foreground bg-url ${cn(baseClassName, baseReadOnlyClassName)}`,
+    readOnlyclassName: `text-url-foreground bg-url ${cn(
+      baseClassName,
+      baseReadOnlyClassName
+    )}`,
     prefix: "url",
-    icon: "link",
+    icon: Link,
   },
   {
     //not include special characters for metions (i assume that @ is for usernames)
     regex: /@(\w+)/g,
     className: `text-arroba-foreground ${baseClassName}`,
-    readOnlyclassName: `text-arroba-foreground bg-arroba ${cn(baseClassName, baseReadOnlyClassName)}`,
+    readOnlyclassName: `text-arroba-foreground bg-arroba ${cn(
+      baseClassName,
+      baseReadOnlyClassName
+    )}`,
     prefix: "arroba",
   },
   {
     regex: /#([^\s]+)/g,
     className: `text-hashtag-foreground ${baseClassName}`,
-    readOnlyclassName: `text-hashtag-foreground bg-hashtag ${cn(baseClassName, baseReadOnlyClassName)}`,
+    readOnlyclassName: `text-hashtag-foreground bg-hashtag ${cn(
+      baseClassName,
+      baseReadOnlyClassName
+    )}`,
     prefix: "hashtag",
   },
 ];
@@ -104,5 +119,5 @@ export default function useParseMessage({
             )
         : [part]
     );
-  }, [text]);
+  }, [text, readOnly]);
 }

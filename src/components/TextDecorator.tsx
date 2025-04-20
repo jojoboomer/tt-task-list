@@ -1,4 +1,3 @@
-import { DynamicIcon } from "lucide-react/dynamic";
 import { Badge } from "./ui/badge";
 
 interface Props {
@@ -6,7 +5,7 @@ interface Props {
   component: "badge" | "span";
   className: string;
   key: string;
-  icon?: any;
+  icon?: React.ComponentType<{ className?: string }>;
 }
 
 export const TextDecorator = ({
@@ -14,10 +13,15 @@ export const TextDecorator = ({
   children,
   component,
   className,
-  icon,
+  icon: Icon,
 }: Props) => {
   if (component === "badge") {
-    return <Badge className={className}><DynamicIcon name={icon}/>{children}</Badge>;
+    return (
+      <Badge className={className}>
+        {Icon && <Icon />}
+        {children}
+      </Badge>
+    );
   }
   return (
     <span key={key} className={className}>
