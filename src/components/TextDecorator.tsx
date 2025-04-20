@@ -9,7 +9,6 @@ interface Props {
 }
 
 export const TextDecorator = ({
-  key,
   children,
   component,
   className,
@@ -24,7 +23,7 @@ export const TextDecorator = ({
     );
   }
   return (
-    <span key={key} className={className}>
+    <span className={className}>
       {children}
     </span>
   );
