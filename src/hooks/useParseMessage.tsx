@@ -9,25 +9,28 @@ const REGEXES: {
   prefix: string;
 }[] = [
   {
+    //simple regex for mailto not inclue special cases
     regex: /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g,
     className: "text-mailto-foreground",
     readOnlyclassName: `text-mailto-foreground bg-mailto ${baseReadOnlyClassName}`,
     prefix: "email",
   },
   {
+    //not include regex for particular cases (.com, .org, etc) not specificed in test
     regex: /(https?:\/\/|www\.)[^\s]+/g,
     className: "text-url-foreground",
     readOnlyclassName: `text-url-foreground bg-url ${baseReadOnlyClassName}`,
     prefix: "url",
   },
   {
+    //not include special characters for metions (i assume that @ is for usernames)
     regex: /@(\w+)/g,
     className: "text-arroba-foreground",
     readOnlyclassName: `text-arroba-foreground bg-arroba ${baseReadOnlyClassName}`,
     prefix: "arroba",
   },
   {
-    regex: /#(\w+)/g,
+    regex: /#([^\s]+)/g,
     className: "text-hashtag-foreground",
     readOnlyclassName: `text-hashtag-foreground bg-hashtag ${baseReadOnlyClassName}`,
     prefix: "hashtag",
@@ -58,7 +61,10 @@ export default function useParseMessage({
             end = start + match[0].length;
           if (start > lastIndex) out.push(part.slice(lastIndex, start));
           out.push(
-            <span key={`${prefix}-${idx}-${start}`} className={readOnly ? readOnlyclassName : className}>
+            <span
+              key={`${prefix}-${idx}-${start}`}
+              className={readOnly ? readOnlyclassName : className}
+            >
               {match[0]}
             </span>
           );
