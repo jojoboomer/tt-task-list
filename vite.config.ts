@@ -12,6 +12,11 @@ export default defineConfig(() => ({
       provider: 'v8',
       reportsDirectory: './src/tests/coverage',
     },
+    exclude: [
+      '**/{e2e,tests,playwright}/**', // Todas estas carpetas
+      '**/*.{test,spec}.{js,ts}', // Patrón de nombres
+      '**/playwright.config.{js,ts}',
+    ]
   },
   resolve: {
     alias: {
