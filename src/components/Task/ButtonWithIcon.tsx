@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { cn } from "@/lib/utils";
 import { VariantProps } from "class-variance-authority";
-import { DynamicIcon } from "lucide-react/dynamic";
 import { Button, buttonVariants } from "../ui/button";
 
 interface Props {
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   label: string;
   className: string;
   iconClassName?: string;
@@ -13,7 +12,7 @@ interface Props {
 }
 
 const ButtonWithIcon = ({
-  icon,
+  icon: Icon,
   label,
   className,
   iconClassName,
@@ -30,7 +29,7 @@ const ButtonWithIcon = ({
     onClick={onClick}
     className={cn("text-tertiary border-border", className)}
   >
-    {icon && <DynamicIcon name={icon} className={cn("size-5", iconClassName)} />}
+    {Icon && <Icon className={cn("size-5", iconClassName)} />}
     <span className={cn("hidden xl:block", labelClassName)}>{label}</span>
   </Button>
 );

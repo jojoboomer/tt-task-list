@@ -1,6 +1,7 @@
 import useParseMessage from "@/hooks/useParseMessage";
 import useTaskStore from "@/store/tasklist";
 import { useCallback, useState } from "react";
+import { AvatarBtn } from "../AvatarBtn";
 import RichInput from "../RichInput";
 import TaskTitle from "../TaskTitle";
 import { Checkbox } from "../ui/checkbox";
@@ -56,6 +57,11 @@ export const Task = ({ data }: TaskProps) => {
         ) : (
           <TaskTitle text={parsed} />
         )}
+        <AvatarBtn
+          visible={active}
+          disabled={!text}
+          name="John Doe"
+        />
       </div>
       {active && (
         <ButtonBar

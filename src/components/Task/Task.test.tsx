@@ -2,7 +2,7 @@ import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, it } from "vitest";
 import { Task } from "./Task";
 
-describe("ButtonGroup", () => {
+describe("Task", () => {
   afterEach(cleanup);
 
   const data: Task = {

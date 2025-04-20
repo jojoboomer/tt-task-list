@@ -1,4 +1,13 @@
-import { DynamicIcon } from "lucide-react/dynamic";
+import {
+  Calendar,
+  Disc,
+  Highlighter,
+  Maximize2,
+  Plus,
+  Save,
+  Unlock,
+  X,
+} from "lucide-react";
 import { Button } from "../ui/button";
 import ButtonGroup from "./ButtonGroup";
 import ButtonWithIcon from "./ButtonWithIcon";
@@ -11,10 +20,23 @@ interface Props {
   onApply: () => void;
 }
 
+type IconName = "calendar" | "unlock" | "highlighter" | "disc";
+
+// Mapeo de íconos a componentes
+const iconComponents: Record<
+  IconName,
+  React.ComponentType<{ className?: string }>
+> = {
+  calendar: Calendar,
+  unlock: Unlock,
+  highlighter: Highlighter,
+  disc: Disc,
+};
+
 const toolbarButtons = [
   { icon: "calendar", label: "Today" },
   { icon: "unlock", label: "Public" },
-  { icon: "loader", label: "Highlight" },
+  { icon: "highlighter", label: "Normal" },
   { icon: "disc", label: "Estimation", extraClass: "py-2 pr-6 pl-4" },
 ];
 
@@ -28,7 +50,7 @@ export const ButtonBar = ({
   const renderLeftButtons = () => (
     <div className="flex flex-1 gap-4">
       <ButtonWithIcon
-        icon={"maximize-2"}
+        icon={Maximize2}
         label={"Open"}
         role="button"
         disabled={disabled}
@@ -38,17 +60,20 @@ export const ButtonBar = ({
         labelClassName="text-black"
       />
       <ButtonGroup>
-        {toolbarButtons.map(({ icon, label, extraClass = "" }) => (
-          <ButtonWithIcon
-            label={label}
-            role="button"
-            key={label}
-            icon={icon}
-            className={extraClass}
-            disabled={disabled}
-            variant="outline"
-          />
-        ))}
+        {toolbarButtons.map(({ icon, label, extraClass = "" }) => {
+          const IconComponent = iconComponents[icon];
+          return (
+            <ButtonWithIcon
+              label={label}
+              role="button"
+              key={label}
+              icon={IconComponent}
+              className={extraClass}
+              disabled={disabled}
+              variant="outline"
+            />
+          );
+        })}
       </ButtonGroup>
     </div>
   );
@@ -63,9 +88,15 @@ export const ButtonBar = ({
       >
         Cancel
       </Button>
-      <Button role="action" onClick={onApply}>
-        {newComp ? (edited ? "Add" : "Ok") : "Save"}
-      </Button>
+      {edited ? (
+        <Button role="action" onClick={onApply}>
+          {newComp ? "Add" : "Save"}
+        </Button>
+      ) : (
+        <Button role="action" onClick={onApply}>
+          Ok
+        </Button>
+      )}
     </ButtonGroup>
   );
 
@@ -73,15 +104,15 @@ export const ButtonBar = ({
     <ButtonGroup className="inline xl:hidden">
       {edited ? (
         <Button role="action" size="icon" onClick={onApply}>
-          <DynamicIcon
-            name={newComp ? "plus" : "save"}
-            className="size-5"
-            color="white"
-          />
+          {newComp ? (
+            <Plus className="size-5 text-white" />
+          ) : (
+            <Save className="size-5 text-white" />
+          )}
         </Button>
       ) : (
         <Button role="action" size="icon" onClick={onCancel}>
-          <DynamicIcon name="x" className="size-5" color="white" />
+          <X className="size-5 text-white" />
         </Button>
       )}
     </ButtonGroup>

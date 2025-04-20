@@ -24,5 +24,13 @@ dist-ssr
 *.sw?
 
 .env
+.testing.env
+
 *.pdf
-tests/coverage
+src/tests/coverage
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

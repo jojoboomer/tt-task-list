@@ -10,8 +10,13 @@ export default defineConfig(() => ({
     environment: 'happy-dom',
     coverage: {
       provider: 'v8',
-      reportsDirectory: './tests/coverage',
+      reportsDirectory: './src/tests/coverage',
     },
+    exclude: [
+      '**/{e2e,tests,playwright}/**', // Todas estas carpetas
+      '**/*.{test,spec}.{js,ts}', // Patrón de nombres
+      '**/playwright.config.{js,ts}',
+    ]
   },
   resolve: {
     alias: {

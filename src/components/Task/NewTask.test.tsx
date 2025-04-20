@@ -1,13 +1,13 @@
-import { cleanup, render } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, it } from "vitest";
 import { NewTask } from "./NewTask";
 
-describe("ButtonGroup", () => {
+describe("New Task", () => {
   afterEach(cleanup);
 
   it("should render", () => {
     render(<NewTask />);
 
-    // screen.getAllByText("Type to add new task");
+    screen.getByText("Type to add new task");
   });
 });

@@ -2,6 +2,7 @@ import { useMutationTask } from "@/hooks/useTask";
 import useTaskStore from "@/store/tasklist";
 import { PlusSquare } from "lucide-react";
 import { useCallback, useState } from "react";
+import { AvatarBtn } from "../AvatarBtn";
 import RichInput from "../RichInput";
 import TaskTitle from "../TaskTitle";
 import { ButtonBar } from "./ButtonBar";
@@ -35,7 +36,7 @@ export const NewTask = () => {
     if (!active) {
       setActiveTask("new");
     }
-  }, [activeTask, setActiveTask]);
+  }, [setActiveTask, active]);
 
   return (
     <div
@@ -50,12 +51,23 @@ export const NewTask = () => {
           active ? "border border-gray-300" : ""
         }`}
       >
+      <div
+        className={`px-4 py-1 w-full flex items-center gap-2 rounded-t-md ${
+          active ? "border border-gray-300" : ""
+        }`}
+      >
         <PlusSquare className="text-primary" size={20} />
         {active ? (
           <RichInput text={text} onChange={handleMessageChange} />
         ) : (
           <TaskTitle />
+          <TaskTitle />
         )}
+        <AvatarBtn
+          visible={active}
+          disabled={!text}
+          name="John Doe"
+        />
       </div>
       {active && (
         <ButtonBar
@@ -63,6 +75,7 @@ export const NewTask = () => {
           onCancel={handleCancel}
           onApply={handleAdd}
           newComp={true}
+          edited={text !== ""}
           edited={text !== ""}
         />
       )}
