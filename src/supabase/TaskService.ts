@@ -1,8 +1,11 @@
 import supabase from "@/lib/supabase";
 
+const NODE_ENV = import.meta.env.NODE_ENV;
+const tableName = !NODE_ENV ? "task_list_test" : "task_list";
+
 export const fetchTasks = async (): Promise<Task[]> => {
   const { data, error } = await supabase
-    .from('task_list')
+    .from(tableName)
     .select('*')
     .order('created_at', { ascending: true });
 
@@ -16,7 +19,7 @@ export const fetchTasks = async (): Promise<Task[]> => {
 
 export const insertTask = async (task: TaskEntry): Promise<Task | null> => {
   const { data, error } = await supabase
-    .from('task_list')
+    .from(tableName)
     .insert(task)
     .select()
     .single();
@@ -31,7 +34,7 @@ export const insertTask = async (task: TaskEntry): Promise<Task | null> => {
 
 export const updateTask = async (task: Task): Promise<Task | null> => {
   const { data, error } = await supabase
-    .from('task_list')
+    .from(tableName)
     .update(task)
     .eq('id', task.id)
     .select()
