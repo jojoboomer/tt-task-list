@@ -1,5 +1,5 @@
 import { queryClient } from "@/lib/queryClient";
-import { fetchTasks, insertTask } from "@/supabase/task";
+import { fetchTasks, insertTask, updateTask } from "@/supabase/TaskService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useTask = () => {
@@ -10,27 +10,61 @@ export const useTask = () => {
   });
 };
 
-export const useMutationTask = () => {
+export const useMutationAddTask = () => {
   const mutation = useMutation({
-    mutationKey: ["tasks"],
+    // mutationKey: ["tasks"],
     mutationFn: (newTask: TaskEntry) => insertTask(newTask),
-    onMutate: (newTask) => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    onMutate: async (newTask) => {
+      await queryClient.cancelQueries({ queryKey: ["tasks"] });
+
       const prevState = queryClient.getQueryData(["tasks"]) || [];
-      const optimisticValue = {
-        ...newTask,
-        id: `temp_${Date.now()}`, // temp
-      };
-      queryClient.setQueryData(["tasks"], [{ ...prevState }, optimisticValue]);
+
+      queryClient.setQueryData(["tasks"], (oldData?: Task[]): Task[] => {
+        const optimisticValue = {
+          //temp value
+          ...newTask,
+          id: `${Math.random()}`,
+          created_at: new Date().toISOString(),
+        };
+        if (oldData == null) return [optimisticValue];
+        return [...oldData, optimisticValue];
+      });
+
       return { prevState };
     },
-    onError: (_, __, context) => {
+    onError: (error, __, context) => {
+      console.error(error);
       queryClient.setQueryData(["tasks"], context?.prevState);
     },
-    onSuccess: (data) => {
-      queryClient.setQueryData(["tasks"], (old) =>
-        old.map((task) => (task.id.startsWith("temp_") ? data : task))
-      );
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    },
+    networkMode: "offlineFirst",
+  });
+  return mutation;
+};
+
+export const useMutationUpdateTask = () => {
+  const mutation = useMutation({
+    // mutationKey: ["tasks"],
+    mutationFn: (updatedTask: Task) => updateTask(updatedTask),
+    onMutate: async (updatedTask) => {
+      await queryClient.cancelQueries({ queryKey: ["tasks"] });
+
+      const prevState = queryClient.getQueryData(["tasks"]) || [];
+
+      queryClient.setQueryData(["tasks"], (oldData?: Task[]): Task[] => {
+        if (oldData == null) return [updatedTask];
+        return oldData.map((task) =>
+          task.id === updatedTask.id ? updatedTask : task
+        );
+      });
+
+      return { prevState };
+    },
+    onError: (error, __, context) => {
+      console.error(error);
+      queryClient.setQueryData(["tasks"], context?.prevState);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
