@@ -2,6 +2,7 @@ import useParseMessage from "@/hooks/useParseMessage";
 import { useMutationUpdateTask } from "@/hooks/useTask";
 import useTaskStore from "@/store/tasklist";
 import { useCallback, useState } from "react";
+import { toast } from "sonner";
 import { AvatarBtn } from "../AvatarBtn";
 import RichInput from "../RichInput";
 import TaskTitle from "../TaskTitle";
@@ -29,6 +30,15 @@ export const Task = ({ data }: TaskProps) => {
   }, [data, setActiveTask]);
 
   const handleSave = useCallback(() => {
+    if(!text) {
+      toast("The task title cannot be empty",{
+        icon: "⚠️",
+        style: {
+          width: "250px",
+        },
+      });
+      return
+    }
     // We can set all the data in the task, but test only ask for title
     mutation.mutate({ ...data, title: text });
     setActiveTask(null);
