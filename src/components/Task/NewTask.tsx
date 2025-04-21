@@ -1,7 +1,7 @@
 import { useMutationAddTask } from "@/hooks/useTask";
 import useTaskStore from "@/store/tasklist";
 import { PlusSquare } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AvatarBtn } from "../AvatarBtn";
 import RichInput from "../RichInput";
 import TaskTitle from "../TaskTitle";
@@ -12,6 +12,12 @@ export const NewTask = () => {
   const { activeTask, setActiveTask } = useTaskStore();
   const active = activeTask == "new";
   const mutation = useMutationAddTask();
+
+    useEffect(() => {
+      if (!active) {
+        setText('');
+      }
+    }, [active]);
 
   const handleMessageChange = useCallback((newText: string) => {
     setText(newText);

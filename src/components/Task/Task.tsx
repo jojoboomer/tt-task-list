@@ -1,7 +1,7 @@
 import useParseMessage from "@/hooks/useParseMessage";
 import { useMutationUpdateTask } from "@/hooks/useTask";
 import useTaskStore from "@/store/tasklist";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { AvatarBtn } from "../AvatarBtn";
 import RichInput from "../RichInput";
@@ -20,6 +20,13 @@ export const Task = ({ data }: TaskProps) => {
   const active = activeTask === data.id;
   const parsed = useParseMessage({ text, readOnly: !active });
   const mutation = useMutationUpdateTask();
+
+  useEffect(() => {
+    if (!active) {
+      setText(data.title);
+      setChecked(data.status === "completed");
+    }
+  }, [active]);
 
   const handleMessageChange = useCallback((newText: string) => {
     setText(newText);
