@@ -1,4 +1,4 @@
-import { useMutationTask } from "@/hooks/useTask";
+import { useMutationAddTask } from "@/hooks/useTask";
 import useTaskStore from "@/store/tasklist";
 import { PlusSquare } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -9,9 +9,9 @@ import { ButtonBar } from "./ButtonBar";
 
 export const NewTask = () => {
   const [text, setText] = useState<string>("");
-  const { addTask, activeTask, setActiveTask } = useTaskStore();
+  const { activeTask, setActiveTask } = useTaskStore();
   const active = activeTask == "new";
-  const mutation = useMutationTask();
+  const mutation = useMutationAddTask();
 
   const handleMessageChange = useCallback((newText: string) => {
     setText(newText);
@@ -27,10 +27,9 @@ export const NewTask = () => {
       title: text,
       status: "pending",
     });
-    // addTask(newTask);
     setText("");
     setActiveTask(null);
-  }, [text, addTask, setActiveTask]);
+  }, [text, setActiveTask, mutation]);
 
   const handleClick = useCallback(() => {
     if (!active) {
@@ -51,23 +50,13 @@ export const NewTask = () => {
           active ? "border border-gray-300" : ""
         }`}
       >
-      <div
-        className={`px-4 py-1 w-full flex items-center gap-2 rounded-t-md ${
-          active ? "border border-gray-300" : ""
-        }`}
-      >
         <PlusSquare className="text-primary" size={20} />
         {active ? (
           <RichInput text={text} onChange={handleMessageChange} />
         ) : (
           <TaskTitle />
-          <TaskTitle />
         )}
-        <AvatarBtn
-          visible={active}
-          disabled={!text}
-          name="John Doe"
-        />
+        <AvatarBtn visible={active} disabled={!text} name="John Doe" />
       </div>
       {active && (
         <ButtonBar
@@ -75,7 +64,6 @@ export const NewTask = () => {
           onCancel={handleCancel}
           onApply={handleAdd}
           newComp={true}
-          edited={text !== ""}
           edited={text !== ""}
         />
       )}
