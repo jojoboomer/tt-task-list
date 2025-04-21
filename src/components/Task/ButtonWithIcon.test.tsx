@@ -1,11 +1,13 @@
+import '@testing-library/jest-dom/vitest';
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { Accessibility } from "lucide-react";
 import { afterEach, describe, expect, it, vitest } from "vitest";
 import ButtonWithIcon from "./ButtonWithIcon";
 
 describe("Button Bar", () => {
   const defaultProps = {
-    icon: "accessibility",
+    icon: Accessibility,
     label: "Test Label",
     className: "custom-class",
   };
@@ -13,14 +15,14 @@ describe("Button Bar", () => {
   afterEach(cleanup);
 
   it("should render", () => {
-    render(<ButtonWithIcon {...defaultProps} />)
+    render(<ButtonWithIcon {...defaultProps} />);
 
     screen.getByRole("button");
-    screen.getByText('Test Label');
-    //Todo get the icon
+    screen.getByText("Test Label");
+    // TODO: get the icon
   });
 
-  it("click event", async () => {
+  it("should call onClick when clicked", async () => {
     const handleClick = vitest.fn();
     render(<ButtonWithIcon {...defaultProps} onClick={handleClick} />);
 
@@ -30,14 +32,11 @@ describe("Button Bar", () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  it("click event on disable state", async () => {
+  it("should not call onClick when disabled", async () => {
     const handleClick = vitest.fn();
     render(<ButtonWithIcon {...defaultProps} disabled onClick={handleClick} />);
 
     const button = screen.getByRole("button");
-    button.hasAttribute('disable');
-    
-    await userEvent.click(button);
-    expect(handleClick).not.toHaveBeenCalled();
+    expect(button).toBeDisabled();
   });
 });

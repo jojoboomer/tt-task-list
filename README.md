@@ -52,3 +52,5 @@ npm run dev
 - In description says that badges are touchables but not say how the task is open it. So in my solution i made the task open when i click on it and ignore the touchable badge, If we want to make it touchable we can use anchor instead of span on the hook ```useParseMessage.tsx```, but for that we need implement other way to open the task.
 
 - I cant find the icon for the highlight button, so i used the highlighter icon from my icon library. I dont undestand the icon for estimation sorry, so i used a similar visual icons.
+
+- I used Zustand to manage task status. In the initial phase of the app, i stored tasks in local storage. At the end of the development, i decided to use the supabase database to store them. I decided let Zustand manage the active task status. If the app scales, we can use it for the rest of UI states.

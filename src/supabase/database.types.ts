@@ -1,7 +1,7 @@
 export type Database = {
   public: {
     Tables: {
-      task: {
+      task_list: {
         Row: {
           created_at: string;
           id: string;

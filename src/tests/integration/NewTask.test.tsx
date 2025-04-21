@@ -1,5 +1,7 @@
 import { NewTask } from "@/components/Task/NewTask";
+import { queryClient } from "@/lib/queryClient";
 import useTaskStore from "@/store/tasklist";
+import { QueryClientProvider } from "@tanstack/react-query";
 import '@testing-library/jest-dom/vitest';
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -11,7 +13,11 @@ describe("Integration test for New Task component", () => {
   });
 
   it("should render", async  () => {
-    render(<NewTask />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NewTask/>
+      </QueryClientProvider>
+    );
     useTaskStore.setState({ taskList: [] });
     const addTaskSpy = vi.spyOn(useTaskStore.getState(), 'addTask');
     const user = userEvent.setup();

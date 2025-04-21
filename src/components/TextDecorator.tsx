@@ -4,7 +4,6 @@ interface Props {
   children: React.ReactNode;
   component: "badge" | "span";
   className: string;
-  key: string;
   icon?: React.ComponentType<{ className?: string }>;
 }
 

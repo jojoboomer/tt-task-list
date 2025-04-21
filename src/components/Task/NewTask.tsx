@@ -1,3 +1,4 @@
+import { useMutationAddTask } from "@/hooks/useTask";
 import useTaskStore from "@/store/tasklist";
 import { PlusSquare } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -8,8 +9,9 @@ import { ButtonBar } from "./ButtonBar";
 
 export const NewTask = () => {
   const [text, setText] = useState<string>("");
-  const { addTask, activeTask, setActiveTask } = useTaskStore();
+  const { activeTask, setActiveTask } = useTaskStore();
   const active = activeTask == "new";
+  const mutation = useMutationAddTask();
 
   const handleMessageChange = useCallback((newText: string) => {
     setText(newText);
@@ -21,20 +23,17 @@ export const NewTask = () => {
   }, [setActiveTask]);
 
   const handleAdd = useCallback(() => {
-    if (!text) {
+    if(!text) {
       setActiveTask(null);
-      return;
+      return
     }
-    const newTask: Task = {
-      id: Math.random(),
+    mutation.mutate({
       title: text,
       status: "pending",
-      created_at: "",
-    };
-    addTask(newTask);
+    });
     setText("");
     setActiveTask(null);
-  }, [text, addTask, setActiveTask]);
+  }, [text, setActiveTask, mutation]);
 
   const handleClick = useCallback(() => {
     if (!active) {
@@ -61,11 +60,7 @@ export const NewTask = () => {
         ) : (
           <TaskTitle />
         )}
-        <AvatarBtn
-          visible={active}
-          disabled={!text}
-          name="John Doe"
-        />
+        <AvatarBtn visible={active} disabled={!text} name="John Doe" />
       </div>
       {active && (
         <ButtonBar
