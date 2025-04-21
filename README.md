@@ -41,7 +41,7 @@ VITE_SUPABASE_URL=https://your-supabase-url.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
 
-important: the `VITE_ENV` variable is used to determine the database table to use. You should set it to `development` for local development.
+:warning: the `VITE_ENV` variable is used to determine the database table to use.
 
 ### Running the Project
 
