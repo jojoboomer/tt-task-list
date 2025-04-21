@@ -3,11 +3,11 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 interface State {
   taskList: Task[];
-  activeTask: number | "new" | null;
+  activeTask: string | "new" | null;
 }
 
 interface Actions {
-  setActiveTask: (activeTask: number | "new" | null) => void;
+  setActiveTask: (activeTask: string | "new" | null) => void;
   addTask: (newTask: Task) => void;
   updateTask: (updatedTask: Task) => void;
   clear: () => void;
@@ -15,15 +15,6 @@ interface Actions {
 
 const initialState: State = {
   activeTask: null,
-  // taskList: [
-  //   {
-  //     id: 1,
-  //     title:
-  //       "#Important Write to some_email@gmail.com and tell @natasha about https://staging.alldone.app",
-  //     status: "pending",
-  //     created_at: "",
-  //   },
-  // ],
   taskList: [],
 };
 
@@ -39,7 +30,7 @@ const useTaskStore = create<State & Actions>()(
             return task.id === updatedTask.id ? updatedTask : task
           }),
         })),
-      setActiveTask: (activeTask: number | "new" | null) =>
+      setActiveTask: (activeTask: string | "new" | null) =>
         set(() => ({ activeTask })),
       clear: () => set(initialState),
     }),
