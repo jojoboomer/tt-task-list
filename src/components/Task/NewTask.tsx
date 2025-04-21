@@ -23,6 +23,10 @@ export const NewTask = () => {
   }, [setActiveTask]);
 
   const handleAdd = useCallback(() => {
+    if(!text) {
+      setActiveTask(null);
+      return
+    }
     mutation.mutate({
       title: text,
       status: "pending",
