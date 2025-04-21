@@ -33,12 +33,15 @@ yarn
 
 ### Environment Variables
 
-Create a file named `.env` in the project root and add your Supabase credentials and other configuration values:
+Create a file named `.env` in the project root and add your Supabase credentials and other configuration values. You should have the following variables:
 
 ```env
+VITE_ENV=development
 VITE_SUPABASE_URL=https://your-supabase-url.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
+
+important: the `VITE_ENV` variable is used to determine the database table to use. You should set it to `development` for local development.
 
 ### Running the Project
 

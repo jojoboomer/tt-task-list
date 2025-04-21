@@ -1,7 +1,7 @@
 import supabase from "@/lib/supabase";
 
-const NODE_ENV = import.meta.env.NODE_ENV;
-const tableName = !NODE_ENV ? "task_list_test" : "task_list";
+const VITE_ENV = import.meta.env.VITE_ENV;
+const tableName = VITE_ENV == 'development' ? "task_list_test" : "task_list";
 
 export const fetchTasks = async (): Promise<Task[]> => {
   const { data, error } = await supabase
