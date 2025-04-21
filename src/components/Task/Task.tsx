@@ -15,6 +15,7 @@ interface TaskProps {
 
 export const Task = ({ data }: TaskProps) => {
   const [text, setText] = useState<string>(data.title);
+  const [checked, setChecked] = useState<boolean>(data.status === "completed");
   const { activeTask, setActiveTask } = useTaskStore();
   const active = activeTask === data.id;
   const parsed = useParseMessage({ text, readOnly: !active });
@@ -40,9 +41,9 @@ export const Task = ({ data }: TaskProps) => {
       return
     }
     // We can set all the data in the task, but test only ask for title
-    mutation.mutate({ ...data, title: text });
+    mutation.mutate({ ...data, title: text, status: checked ? "completed" : "pending" });
     setActiveTask(null);
-  }, [text, data, setActiveTask, mutation]);
+  }, [text, data, setActiveTask, mutation, checked]);
 
   const handleClick = useCallback(() => {
     if (!active) {
@@ -63,7 +64,7 @@ export const Task = ({ data }: TaskProps) => {
         }`}
       >
         {/* Test instructions dont ask for Checkbox funcionality */}
-        <Checkbox className="size-5" />
+        <Checkbox className="size-5" checked={checked} onClick={() => setChecked(!checked)} />
         {active ? (
           <RichInput text={text} onChange={handleMessageChange} />
         ) : (
