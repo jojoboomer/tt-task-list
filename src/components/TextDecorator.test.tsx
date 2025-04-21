@@ -1,4 +1,5 @@
 import { cleanup, render, screen } from "@testing-library/react";
+import { Mail } from "lucide-react";
 import { afterEach, describe, expect, it } from "vitest";
 import { TextDecorator } from "./TextDecorator";
 
@@ -20,7 +21,7 @@ describe("Text decorator component", () => {
       className=""
       component="badge"
       children="Dummy text"
-      icon={"mail"}
+      icon={Mail}
     />
   );
 
