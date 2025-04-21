@@ -1,4 +1,4 @@
-CREATE TABLE task (
+CREATE TABLE task_list (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     title TEXT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
