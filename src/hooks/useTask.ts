@@ -12,7 +12,7 @@ export const useTask = () => {
 
 export const useMutationAddTask = () => {
   const mutation = useMutation({
-    // mutationKey: ["tasks"],
+    mutationKey: ["tasks"],
     mutationFn: (newTask: TaskEntry) => insertTask(newTask),
     onMutate: async (newTask) => {
       await queryClient.cancelQueries({ queryKey: ["tasks"] });
