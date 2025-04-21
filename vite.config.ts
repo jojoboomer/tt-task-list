@@ -13,7 +13,7 @@ export default defineConfig(() => ({
       reportsDirectory: './src/tests/coverage',
     },
     exclude: [
-      '**/{e2e,tests,playwright}/**', // Todas estas carpetas
+      '**/{e2e,playwright}/**', // Todas estas carpetas
       '**/*.{test,spec}.{js,ts}', // Patrón de nombres
       '**/playwright.config.{js,ts}',
     ]
