@@ -1,4 +1,3 @@
-// App.test.tsx
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, it } from "vitest";
 import App from "./App";
