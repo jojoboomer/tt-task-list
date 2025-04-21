@@ -20,6 +20,9 @@ git clone https://github.com/jojoboomer/tt-task-list.git
 cd tt-task-list
 ```
 
+#### 📝 Notes
+- I currently have two branches. The `main` branch contains the original version of the app without db. The other branch includes the version with supabase, which is the one I deployed on Netlify. I decided to keep them in separate branches to maintain the `main` branch clean and functional, only using local storage as Front-End solution, but the test solution is in the `supabase` branch.
+
 ### Installation
 
 Install the dependencies (I use `yarn` as package manager):
