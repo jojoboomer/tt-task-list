@@ -1,7 +1,7 @@
 type TaskStatus = "pending" | "completed";
 
 interface Task {
-  id: number;
+  id: string;
   title: string;
   status: TaskStatus;
   created_at: string;
