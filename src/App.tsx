@@ -10,9 +10,6 @@ function App() {
       persistOptions={{
         persister: syncPersister,
       }}
-      onSuccess={() => {
-        console.log("React Query cache persistido");
-      }}
     >
       <main className="relative bg-background w-full h-screen overflow-auto">
         <section role="list" className="mx-auto my-0 max-w-[1328px]">
