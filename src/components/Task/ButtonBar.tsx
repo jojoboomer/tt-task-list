@@ -33,7 +33,7 @@ const iconComponents: Record<
   disc: Disc,
 };
 
-const toolbarButtons = [
+const toolbarButtons: { icon: IconName; label: string; extraClass?: string }[] = [
   { icon: "calendar", label: "Today" },
   { icon: "unlock", label: "Public" },
   { icon: "highlighter", label: "Normal" },
